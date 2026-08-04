@@ -87,9 +87,21 @@ const ticksY = Array.from({ length: 6 }, (_, i) => 160 + i * 112);
 <div class="grain"></div>
 
 <style>
+  /*
+   * Hauteur figée en 100svh (« small viewport height ») plutôt que la
+   * hauteur implicite de inset:0 : sur mobile, la barre d'adresse qui se
+   * rétracte au scroll fait varier la hauteur du viewport en continu, ce qui
+   * redimensionnait ces calques fixes en boucle et donnait l'impression que
+   * le disque 3D se déformait. 100svh reste stable pendant le scroll (il
+   * suppose la barre toujours visible) ; 100vh en repli pour les anciens
+   * navigateurs qui ne connaissent pas encore l'unité svh.
+   */
   .stage {
     position: fixed;
     inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
     z-index: 0;
   }
 
@@ -103,7 +115,8 @@ const ticksY = Array.from({ length: 6 }, (_, i) => 160 + i * 112);
     position: fixed;
     inset: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: 100svh;
     z-index: 0;
     pointer-events: none;
     color: var(--text-dim);
@@ -172,6 +185,9 @@ const ticksY = Array.from({ length: 6 }, (_, i) => 160 + i * 112);
   .halo {
     position: fixed;
     inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
     z-index: 1;
     pointer-events: none;
     background: radial-gradient(ellipse 80% 60% at 50% 45%, rgba(232, 65, 44, 0.06), transparent 60%);
@@ -181,6 +197,9 @@ const ticksY = Array.from({ length: 6 }, (_, i) => 160 + i * 112);
   .grain {
     position: fixed;
     inset: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
     z-index: 1;
     pointer-events: none;
     background: url('/grain-tuile-256.png');

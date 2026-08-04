@@ -229,26 +229,49 @@ export function initPlate(canvas: HTMLCanvasElement): void {
   // restent pleins — c'est le rendu validé en design.
   group.add(new THREE.LineSegments(new THREE.BufferGeometry().setFromPoints(crossPoints), guide.clone()));
 
-  // Progression de scroll, lissée d'une frame à l'autre.
+  // Progression de scroll, lissée d'une frame à l'autre. On fige la hauteur
+  // de référence au premier calcul : sur mobile, la barre d'adresse qui se
+  // rétracte au scroll fait varier innerHeight en continu, ce qui ferait
+  // « sauter » la progression (et donc la rotation) à chaque frame si on la
+  // relisait à chaque fois.
+  let scrollMax = Math.max(1, document.documentElement.scrollHeight - innerHeight);
   let target = 0;
   let current = 0;
-  const scrollProgress = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    return max > 0 ? scrollY / max : 0;
-  };
+  const scrollProgress = () => Math.max(0, Math.min(1, scrollY / scrollMax));
   addEventListener('scroll', () => {
     target = scrollProgress();
   }, { passive: true });
 
-  const resize = () => {
-    renderer.setSize(innerWidth, innerHeight, false);
-    camera.aspect = innerWidth / innerHeight;
+  // Taille du rendu calée sur la boîte CSS réelle du canvas (ResizeObserver),
+  // jamais sur innerWidth/innerHeight directement : sur mobile ces derniers
+  // oscillent pendant l'animation de la barre d'adresse au scroll, ce qui
+  // provoquait un redimensionnement en boucle du buffer WebGL et donnait
+  // l'impression que le disque se déformait. La boîte CSS, elle, reste
+  // stable grâce à 100svh sur .stage (voir Backdrop.astro).
+  let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+  const applySize = (width: number, height: number) => {
+    if (width <= 0 || height <= 0) return;
+    renderer.setSize(width, height, false);
+    camera.aspect = width / height;
     camera.updateProjectionMatrix();
-    const m = Math.min(1, innerWidth / 900);
+    const m = Math.min(1, width / 900);
     group.scale.setScalar(0.62 + 0.38 * m);
+    scrollMax = Math.max(1, document.documentElement.scrollHeight - innerHeight);
   };
-  addEventListener('resize', resize);
-  resize();
+
+  const ro = new ResizeObserver((entries) => {
+    const entry = entries[0];
+    if (!entry) return;
+    const { width, height } = entry.contentRect;
+    clearTimeout(resizeTimer);
+    // Léger débounce : encaisse une vraie rotation d'écran sans relancer un
+    // resize à chaque pixel pendant une transition.
+    resizeTimer = setTimeout(() => applySize(width, height), 80);
+  });
+  ro.observe(canvas);
+
+  const initialRect = canvas.getBoundingClientRect();
+  applySize(initialRect.width || innerWidth, initialRect.height || innerHeight);
 
   // Recolore le disque quand ThemeToggle bascule le thème (voir scripts/theme.ts).
   addEventListener('reep:theme', ((e: CustomEvent<{ theme: PlateTheme }>) => {

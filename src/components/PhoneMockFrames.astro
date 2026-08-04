@@ -40,7 +40,11 @@ const { dir, count } = Astro.props;
 
   @media (max-width: 720px) {
     .mock {
-      width: min(320px, 78vw);
+      /* Nettement plus petit que sur desktop : à cette taille, le texte
+         reste le point d'attention et le téléphone devient un accent
+         centré sous le paragraphe plutôt qu'un bloc qui domine l'écran. */
+      width: min(190px, 46vw);
+      align-self: center;
     }
   }
 </style>
