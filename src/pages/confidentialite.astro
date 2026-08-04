@@ -1,0 +1,172 @@
+---
+// Contenu identique à la politique de confidentialité de l'application reep
+// (source : legal/politique-de-confidentialite.md, dernière mise à jour le
+// 23 juillet 2026). À reporter ici à chaque mise à jour du document source.
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { ROUTES } from '../data/routes';
+---
+
+<LegalLayout
+  title="confidentialité"
+  heading="Politique de confidentialité"
+  description="Politique de confidentialité de reep : données collectées, finalités, sous-traitants et droits RGPD."
+  footerLinks={[
+    { href: ROUTES.mentionsLegales, label: 'mentions légales' },
+    { href: ROUTES.cgu, label: "conditions d'utilisation" },
+  ]}
+>
+  <p class="meta">Dernière mise à jour : 23 juillet 2026</p>
+  <p>
+    La présente politique explique quelles données personnelles sont collectées par l'application
+    <strong>reep</strong>, pourquoi, combien de temps elles sont conservées et quels sont tes droits.
+    Elle est conforme au Règlement général sur la protection des données (RGPD).
+  </p>
+
+  <h2>1. Responsable de traitement</h2>
+  <p>Le responsable de traitement est <strong>Edmond Lomy</strong>, éditeur indépendant de l'application reep.</p>
+  <p>Contact pour toute question relative à tes données personnelles : <strong>edostudio@proton.me</strong></p>
+
+  <h2>2. Données que nous collectons</h2>
+  <p>Nous collectons uniquement les données nécessaires au fonctionnement de l'application :</p>
+  <ul>
+    <li>
+      <strong>Compte</strong> : adresse e-mail et mot de passe (le mot de passe est stocké de façon
+      chiffrée, nous n'y avons jamais accès en clair).
+    </li>
+    <li>
+      <strong>Profil</strong> : prénom, nom, photo de profil (facultative), âge, taille, poids,
+      genre, salle de sport favorite.
+    </li>
+    <li>
+      <strong>Données d'entraînement</strong> : programmes, séances réalisées, séries, charges,
+      records personnels, points reep.
+    </li>
+    <li>
+      <strong>Contenu social</strong> : publications, abonnements/abonnés, mentions « j'aime »,
+      commentaires, comptes bloqués, signalements.
+    </li>
+    <li>
+      <strong>Photo du physique (facultative)</strong> : si tu utilises la génération de programme
+      sur mesure, tu peux fournir une photo de ton physique pour l'analyse. <strong>Cette photo
+      n'est jamais enregistrée</strong> ni sur nos serveurs ni chez notre prestataire d'IA ; seul le
+      résultat textuel de l'analyse (ex. estimation du niveau, points forts/faibles) est conservé.
+    </li>
+    <li><strong>Préférences</strong> : réglages d'affichage et de confidentialité, stockés localement sur ton appareil.</li>
+    <li>
+      <strong>Données techniques</strong> : identifiants techniques nécessaires au fonctionnement
+      (jeton de session, identifiant d'appareil pour les achats). <strong>Aucune publicité, aucun
+      traceur publicitaire.</strong>
+    </li>
+  </ul>
+
+  <h2>3. Finalités et bases légales</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Finalité</th>
+        <th>Base légale (RGPD)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Créer et gérer ton compte</td>
+        <td>Exécution du contrat (art. 6.1.b)</td>
+      </tr>
+      <tr>
+        <td>Fournir le suivi d'entraînement et les fonctions sociales</td>
+        <td>Exécution du contrat</td>
+      </tr>
+      <tr>
+        <td>Générer un programme sur mesure et analyser ta photo</td>
+        <td><strong>Consentement</strong> (art. 6.1.a), recueilli avant chaque analyse</td>
+      </tr>
+      <tr>
+        <td>Gérer l'abonnement reep Premium</td>
+        <td>Exécution du contrat</td>
+      </tr>
+      <tr>
+        <td>Sécurité, prévention des abus, modération</td>
+        <td>Intérêt légitime (art. 6.1.f)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+    Tu peux retirer ton consentement à l'analyse photo à tout moment ; cela n'affecte pas la licéité
+    des traitements déjà effectués.
+  </p>
+
+  <h2>4. Destinataires et sous-traitants</h2>
+  <p>
+    Tes données ne sont jamais vendues. Elles sont traitées par des sous-traitants techniques,
+    chacun encadré par un accord de traitement (DPA) :
+  </p>
+  <ul>
+    <li>
+      <strong>Supabase</strong> — hébergement, base de données et authentification. Données
+      hébergées dans l'<strong>Union européenne (Paris, France)</strong>.
+    </li>
+    <li>
+      <strong>Anthropic (Claude)</strong> — génération de programme et analyse de la photo, aux
+      <strong>États-Unis</strong>. La photo est transmise uniquement le temps de l'analyse, puis
+      n'est pas conservée.
+    </li>
+    <li><strong>RevenueCat</strong> — gestion des abonnements, aux <strong>États-Unis</strong>.</li>
+    <li><strong>Apple</strong> — traitement des paiements de l'abonnement (nous ne recevons jamais tes données bancaires).</li>
+  </ul>
+
+  <h2>5. Transferts hors de l'Union européenne</h2>
+  <p>
+    Les traitements réalisés par Anthropic et RevenueCat impliquent un transfert de données vers les
+    États-Unis. Ces transferts sont encadrés par les <strong>clauses contractuelles types</strong>
+    de la Commission européenne et/ou les cadres de protection applicables.
+  </p>
+
+  <h2>6. Durée de conservation</h2>
+  <ul>
+    <li><strong>Données de compte et d'entraînement</strong> : conservées tant que ton compte existe.</li>
+    <li><strong>Photo du physique</strong> : non conservée (traitée puis supprimée immédiatement).</li>
+    <li><strong>Après suppression du compte</strong> : l'ensemble de tes données est <strong>supprimé définitivement</strong> (voir section 8).</li>
+    <li><strong>Journaux techniques et de sécurité</strong> : au maximum 12 mois.</li>
+  </ul>
+
+  <h2>7. Tes droits</h2>
+  <p>
+    Conformément au RGPD, tu disposes des droits suivants : <strong>accès, rectification,
+    effacement, limitation, opposition, portabilité</strong>, et retrait du consentement.
+  </p>
+  <p>Pour les exercer, écris à <strong>edostudio@proton.me</strong>. Nous répondons dans un délai maximum d'un mois.</p>
+  <p>
+    Tu peux également introduire une réclamation auprès de la <strong>CNIL</strong> (Commission
+    nationale de l'informatique et des libertés — www.cnil.fr).
+  </p>
+
+  <h2>8. Suppression de ton compte</h2>
+  <p>
+    Tu peux supprimer ton compte directement depuis l'application (<strong>Profil → Réglages →
+    Supprimer mon compte</strong>). Cette action est <strong>irréversible</strong> et efface
+    définitivement l'ensemble de tes données : profil, programmes, séances, records, publications et
+    photo de profil.
+  </p>
+
+  <h2>9. Sécurité</h2>
+  <p>
+    L'accès à tes données est protégé par une authentification et des règles d'accès strictes au
+    niveau de la base de données : chaque utilisateur ne peut accéder qu'à ses propres données et aux
+    contenus rendus publics par les autres.
+  </p>
+
+  <h2>10. Âge minimum</h2>
+  <p>
+    reep n'est pas destinée aux personnes de moins de <strong>15 ans</strong>. Nous ne collectons pas
+    sciemment de données concernant des mineurs de moins de 15 ans.
+  </p>
+
+  <h2>11. Modifications</h2>
+  <p>
+    Cette politique peut évoluer. En cas de changement important, tu en seras informé dans
+    l'application. La date de dernière mise à jour figure en haut de ce document.
+  </p>
+
+  <h2>12. Contact</h2>
+  <p>Pour toute question : <strong>edostudio@proton.me</strong></p>
+</LegalLayout>

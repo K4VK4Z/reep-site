@@ -1,0 +1,185 @@
+---
+// Bloc « et bien plus encore » : la liste de tout ce que l'app fait d'autre,
+// présentée comme une nomenclature de plan — index numéroté, filets fins,
+// croix de repère aux coins du bloc.
+import { MORE_FEATURES } from '../data/features';
+---
+
+<section class="more">
+  <div class="inner reveal">
+    <div class="more-head">
+      <p class="f-num">04</p>
+      <h2>Et bien plus<br />encore<span class="s">.</span></h2>
+      <span class="more-sub">
+        reep n'est pas un carnet de plus. C'est tout ton entraînement — la séance, la
+        progression, la salle, les potes — dans une seule app.
+      </span>
+    </div>
+
+    <ul class="more-grid" role="list">
+      {
+        MORE_FEATURES.map((item, i) => (
+          <li class="more-item reveal" style={`transition-delay: ${(i % 3) * 90}ms`}>
+            <span class="mi-index" aria-hidden="true">04.{String(i + 1).padStart(2, '0')}</span>
+            <h3>{item.titre}</h3>
+            <p>{item.sous}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .more {
+    min-height: auto;
+    padding-top: 12vh;
+    padding-bottom: 16vh;
+  }
+
+  .more .inner {
+    pointer-events: auto;
+  }
+
+  .more-head {
+    max-width: 640px;
+    margin-bottom: clamp(48px, 7vw, 88px);
+  }
+
+  .f-num {
+    font-family: var(--titre);
+    font-size: 15px;
+    color: var(--signal);
+    letter-spacing: 0.15em;
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    font-family: var(--titre);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.02;
+    margin: 0;
+    color: var(--text);
+  }
+
+  h2 .s {
+    color: var(--signal);
+  }
+
+  .more-sub {
+    font-size: clamp(15px, 1.4vw, 19px);
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 22px 0 0;
+    display: inline-block;
+    text-wrap: pretty;
+  }
+
+  /* — Nomenclature : grille bordée de filets fins, croix aux intersections — */
+
+  .more-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+    border-left: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+    position: relative;
+  }
+
+  .more-item {
+    position: relative;
+    padding: 28px 28px 30px;
+    border-right: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 0.3s ease;
+  }
+
+  /* Croix de repère type plan, révélée au survol au coin de la cellule. */
+  .more-item::before,
+  .more-item::after {
+    content: '';
+    position: absolute;
+    top: -0.75px;
+    left: -0.75px;
+    background: var(--signal);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .more-item::before {
+    width: 17px;
+    height: 1.5px;
+    transform: translate(-50%, -50%);
+  }
+
+  .more-item::after {
+    width: 1.5px;
+    height: 17px;
+    transform: translate(-50%, -50%);
+  }
+
+  .more-item:hover {
+    background: color-mix(in srgb, var(--surface) 65%, transparent);
+  }
+
+  .more-item:hover::before,
+  .more-item:hover::after {
+    opacity: 1;
+  }
+
+  .mi-index {
+    display: block;
+    font-family: var(--titre);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+    transition: color 0.3s ease;
+  }
+
+  .more-item:hover .mi-index {
+    color: var(--signal);
+  }
+
+  .more-item h3 {
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+    margin: 0 0 8px;
+    color: var(--text);
+  }
+
+  .more-item p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-dim);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 960px) {
+    .more-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .more-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .more-item {
+      padding: 22px 20px 24px;
+    }
+  }
+</style>

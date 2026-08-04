@@ -1,0 +1,38 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { ROUTES } from '../data/routes';
+---
+
+<LegalLayout
+  title="mentions légales"
+  heading="Mentions légales"
+  description="Mentions légales du site reep : éditeur, contact, hébergement, propriété intellectuelle."
+  footerLinks={[
+    { href: ROUTES.confidentialite, label: 'confidentialité' },
+    { href: ROUTES.cgu, label: "conditions d'utilisation" },
+  ]}
+>
+  <h2>Éditeur</h2>
+  <p>Le site reep est édité par Edmond Lomy, éditeur indépendant.</p>
+  <p>Directeur de la publication : Edmond Lomy.</p>
+
+  <h2>Contact</h2>
+  <p>Email : edostudio@proton.me</p>
+
+  <h2>Hébergement</h2>
+  <p>[Hébergeur à préciser lors de la mise en ligne du site]</p>
+
+  <h2>Propriété intellectuelle</h2>
+  <p>
+    L'ensemble des contenus du site (marque reep, logo, textes, visuels, interface) est protégé par
+    le droit de la propriété intellectuelle. Toute reproduction ou représentation, totale ou
+    partielle, sans autorisation écrite préalable est interdite.
+  </p>
+
+  <h2>Responsabilité</h2>
+  <p>
+    Les informations publiées sur ce site sont fournies à titre indicatif, dans l'attente du
+    lancement de l'application. L'éditeur ne saurait être tenu responsable des dommages résultant de
+    l'utilisation du site.
+  </p>
+</LegalLayout>

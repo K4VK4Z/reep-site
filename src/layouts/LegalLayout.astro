@@ -1,0 +1,39 @@
+---
+import '../styles/legal.css';
+
+import BaseLayout from './BaseLayout.astro';
+import ReepLogo from '../components/ReepLogo.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ThemeToggle from '../components/ThemeToggle.astro';
+import { ROUTES } from '../data/routes';
+
+interface Props {
+  /** Titre de l'onglet (« reep — … »). */
+  title: string;
+  /** Titre affiché en h1, le point final signal est ajouté par le layout. */
+  heading: string;
+  description?: string;
+  /** Liens de pied de page vers les autres pages légales. */
+  footerLinks: { href: string; label: string }[];
+}
+
+const { title, heading, description, footerLinks } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} bodyClass="legal">
+  <header>
+    <ReepLogo href={ROUTES.accueil} />
+    <div class="header-actions">
+      <a class="back" href={ROUTES.accueil}>← retour</a>
+    </div>
+  </header>
+
+  <ThemeToggle />
+
+  <main>
+    <h1>{heading}<span class="s">.</span></h1>
+    <slot />
+  </main>
+
+  <SiteFooter links={footerLinks} />
+</BaseLayout>

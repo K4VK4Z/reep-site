@@ -1,0 +1,66 @@
+---
+import '../styles/home.css';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Backdrop from '../components/Backdrop.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import FullscreenMenu from '../components/FullscreenMenu.astro';
+import FeatureSection from '../components/FeatureSection.astro';
+import MoreFeatures from '../components/MoreFeatures.astro';
+import AppStoreButton from '../components/AppStoreButton.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import Wordmark from '../components/Wordmark.astro';
+import { FEATURES } from '../data/features';
+import { ROUTES } from '../data/routes';
+---
+
+<BaseLayout title="bientôt">
+  <Backdrop />
+  <SiteHeader />
+  <FullscreenMenu />
+
+  <main>
+    <section class="hero load">
+      <div class="inner">
+        <p class="eyebrow">app de musculation</p>
+        <h1>Ta salle va<br />changer<span class="s">.</span></h1>
+        <p class="sub">
+          Un programme qui s'adapte à toi, des stats qui prouvent que tu avances, une salle
+          qui vit autour de toi. reep transforme chaque séance en progrès mesurable. Fais défiler.
+        </p>
+      </div>
+      <div class="scrollhint"><span>scroll</span><span class="line"></span></div>
+    </section>
+
+    {FEATURES.map((feature, i) => <FeatureSection feature={feature} alt={i % 2 === 1} />)}
+
+    <MoreFeatures />
+
+    <section class="final">
+      <div class="inner reveal">
+        <Wordmark />
+        <p>
+          Le carnet d'entraînement qui retient tout.<br />
+          Bientôt entre tes mains.
+        </p>
+        <AppStoreButton />
+      </div>
+    </section>
+  </main>
+
+  <SiteFooter
+    links={[
+      { href: ROUTES.mentionsLegales, label: 'mentions légales' },
+      { href: ROUTES.confidentialite, label: 'confidentialité' },
+      { href: ROUTES.cgu, label: "conditions d'utilisation" },
+    ]}
+  />
+</BaseLayout>
+
+<script>
+  import { initReveals } from '../scripts/reveal';
+  import { initFrameScrub } from '../scripts/frame-scrub';
+
+  initReveals();
+  initFrameScrub();
+</script>

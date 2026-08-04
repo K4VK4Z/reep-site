@@ -1,0 +1,111 @@
+/*
+ * reep — socle global du site vitrine.
+ * Tokens et primitives partagés par la page d'accueil et les pages légales.
+ *
+ * Thème clair par défaut, thème sombre activé via [data-theme="dark"] sur
+ * <html> (posé avant le premier paint par le script anti-flash de
+ * BaseLayout, à partir de la préférence enregistrée dans localStorage).
+ */
+
+:root {
+  --bg: #f7f6f4;
+  --text: #141312;
+  --text-dim: #6e6c68;
+  --signal: #e8412c;
+  --surface: #ece9e4;
+
+  --titre: 'Space Grotesk', sans-serif;
+  --courant: 'Inter', sans-serif;
+}
+
+:root[data-theme='dark'] {
+  --bg: #141312;
+  --text: #f2f1ef;
+  --text-dim: #6e6c68;
+  --signal: #e8412c;
+  --surface: #1f1e1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--courant);
+  overflow-x: hidden;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Pages légales : texte courant aéré. */
+body.legal {
+  line-height: 1.65;
+}
+
+a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--signal);
+}
+
+/* Wordmark : « reep » + carré signal collé à la baseline. */
+.wm {
+  font-family: var(--titre);
+  font-weight: 700;
+  letter-spacing: -0.055em;
+  text-transform: lowercase;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.wm i {
+  display: inline-block;
+  width: 0.13em;
+  height: 0.13em;
+  background: var(--signal);
+  margin-left: 0.13em;
+}
+
+/* Bouton de menu — partagé par l'en-tête (« menu ») et l'overlay (« fermer »). */
+.menu-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: var(--courant);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.menu-btn:hover {
+  color: var(--signal);
+}
+
+.menu-btn .bars {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.menu-btn .bars i {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: currentColor;
+}

@@ -1,0 +1,224 @@
+---
+// Bouton App Store : d'apparence normale, mais l'app n'est pas encore
+// publiée. Au survol, le libellé bascule vers « bientôt disponible » pendant
+// que des repères de plan (cadre tireté, équerres de coin) se dessinent
+// autour du bouton — l'annotation d'architecte plutôt que le tampon barré.
+---
+
+<span class="store" aria-disabled="true" tabindex="0" aria-label="Télécharger sur l'App Store — bientôt disponible">
+  <i class="corner tl" aria-hidden="true"></i>
+  <i class="corner tr" aria-hidden="true"></i>
+  <i class="corner bl" aria-hidden="true"></i>
+  <i class="corner br" aria-hidden="true"></i>
+
+  <svg class="apple" viewBox="0 0 384 512" fill="currentColor" aria-hidden="true">
+    <path
+      d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"
+    ></path>
+  </svg>
+
+  <span class="st" aria-hidden="true">
+    <span class="st-main"><small>Télécharger sur</small><b>l'App Store</b></span>
+    <span class="st-soon">bientôt<span class="dot"></span>disponible</span>
+  </span>
+</span>
+
+<span class="soon-touch" aria-hidden="true">bientôt disponible</span>
+
+<style>
+  .store {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 34px;
+    border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    color: var(--text);
+    cursor: default;
+    user-select: none;
+    transition: border-color 0.4s ease;
+  }
+
+  .store:hover,
+  .store:focus-visible {
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+    outline: none;
+  }
+
+  .apple {
+    width: 30px;
+    height: 36px;
+    flex: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .store:hover .apple,
+  .store:focus-visible .apple {
+    opacity: 0.35;
+  }
+
+  /* — Bascule du libellé : « l'App Store » sort par le haut, l'annotation entre par le bas — */
+
+  /* Grille à cellule unique : la largeur suit le plus large des deux
+     libellés, l'overflow ne coupe que verticalement pendant la bascule. */
+  .st {
+    text-align: left;
+    display: grid;
+    overflow: hidden;
+    min-height: 42px;
+  }
+
+  .st-main,
+  .st-soon {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition:
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 0.4s ease;
+  }
+
+  .st-main small {
+    display: block;
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .st-main b {
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: -0.02em;
+  }
+
+  .st-soon {
+    flex-direction: row;
+    align-items: center;
+    font-family: var(--titre);
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--signal);
+    white-space: nowrap;
+    transform: translateY(115%);
+    opacity: 0;
+  }
+
+  /* Carré signal entre les deux mots, comme dans le wordmark. */
+  .st-soon .dot {
+    width: 5px;
+    height: 5px;
+    background: currentColor;
+    margin: 0 0.7em;
+    flex: none;
+  }
+
+  .store:hover .st-main,
+  .store:focus-visible .st-main {
+    transform: translateY(-115%);
+    opacity: 0;
+  }
+
+  .store:hover .st-soon,
+  .store:focus-visible .st-soon {
+    transform: none;
+    opacity: 1;
+  }
+
+  /* — Équerres de coin : les repères de cadrage se posent autour du bouton — */
+
+  .corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 0 solid var(--signal);
+    opacity: 0;
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .corner.tl {
+    top: -11px;
+    left: -11px;
+    border-top-width: 1.5px;
+    border-left-width: 1.5px;
+    transform: translate(8px, 8px);
+  }
+
+  .corner.tr {
+    top: -11px;
+    right: -11px;
+    border-top-width: 1.5px;
+    border-right-width: 1.5px;
+    transform: translate(-8px, 8px);
+  }
+
+  .corner.bl {
+    bottom: -11px;
+    left: -11px;
+    border-bottom-width: 1.5px;
+    border-left-width: 1.5px;
+    transform: translate(8px, -8px);
+  }
+
+  .corner.br {
+    bottom: -11px;
+    right: -11px;
+    border-bottom-width: 1.5px;
+    border-right-width: 1.5px;
+    transform: translate(-8px, -8px);
+  }
+
+  .store:hover .corner,
+  .store:focus-visible .corner {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Cadre tireté d'annotation, légèrement au large du bouton. */
+  .store::after {
+    content: '';
+    position: absolute;
+    inset: -11px;
+    border: 1px dashed color-mix(in srgb, var(--text) 30%, transparent);
+    border-radius: 20px;
+    opacity: 0;
+    transform: scale(0.985);
+    transition:
+      opacity 0.4s ease,
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .store:hover::after,
+  .store:focus-visible::after {
+    opacity: 0.8;
+    transform: none;
+  }
+
+  /* — Écrans tactiles : pas de survol, l'annotation reste affichée sous le bouton — */
+
+  .soon-touch {
+    display: none;
+    margin-top: 20px;
+    font-family: var(--titre);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--signal);
+  }
+
+  @media (hover: none) {
+    .soon-touch {
+      display: block;
+    }
+  }
+</style>

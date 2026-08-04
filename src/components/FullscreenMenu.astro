@@ -1,0 +1,120 @@
+---
+import { ROUTES } from '../data/routes';
+---
+
+<div class="menu" id="menu" aria-hidden="true">
+  <button class="menu-btn m-close" id="mclose" type="button">fermer</button>
+  <nav>
+    <a href={ROUTES.accueil} data-close="1">accueil<i></i></a>
+    <a href={ROUTES.mentionsLegales}>mentions légales<i></i></a>
+    <a href={ROUTES.confidentialite}>confidentialité<i></i></a>
+    <a href={ROUTES.cgu}>conditions d'utilisation<i></i></a>
+  </nav>
+  <span class="m-foot">reep — bientôt sur l'App Store</span>
+</div>
+
+<style>
+  /*
+   * L'overlay reste volontairement sombre quel que soit le thème du site
+   * (drame visuel, cohérent avec le reste du menu plein écran) : les
+   * couleurs ici sont donc fixes, pas les tokens --bg/--text qui suivent le
+   * thème clair/sombre de la page.
+   */
+  .menu {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    background: rgba(17, 17, 16, 0.97);
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+  }
+
+  .menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .menu nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Redéfinit .menu-btn (couleur théminée) pour le bouton « fermer ». */
+  .menu-btn {
+    color: #f2f1ef;
+  }
+
+  .menu a {
+    font-family: var(--titre);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    font-size: clamp(36px, 6vw, 72px);
+    color: #6e6c68;
+    transition:
+      color 0.25s,
+      transform 0.25s;
+    display: inline-flex;
+    align-items: baseline;
+    width: fit-content;
+  }
+
+  .menu a:hover {
+    color: #f2f1ef;
+    transform: translateX(12px);
+  }
+
+  /* Carré signal révélé au survol, comme dans le wordmark. */
+  .menu a i {
+    display: inline-block;
+    width: 0.12em;
+    height: 0.12em;
+    background: var(--signal);
+    margin-left: 0.18em;
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .menu a:hover i {
+    opacity: 1;
+  }
+
+  .menu .m-close {
+    position: absolute;
+    top: 28px;
+    right: 40px;
+  }
+
+  .menu .m-foot {
+    position: absolute;
+    bottom: 32px;
+    left: 40px;
+    color: #6e6c68;
+    font-size: 13px;
+  }
+
+  @media (max-width: 720px) {
+    .menu .m-close {
+      right: 24px;
+    }
+
+    .menu .m-foot {
+      left: 24px;
+    }
+  }
+</style>
+
+<script>
+  import { initMenu } from '../scripts/menu';
+
+  initMenu();
+</script>

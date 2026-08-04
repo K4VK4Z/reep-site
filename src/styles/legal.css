@@ -1,0 +1,156 @@
+/*
+ * Pages légales — même thème sombre que l'accueil, colonne de lecture 720px.
+ * Chargé uniquement par LegalLayout, les sélecteurs d'éléments restent sûrs.
+ */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28px 40px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.back {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 720px) {
+  .header-actions {
+    gap: 20px;
+  }
+}
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 60px 24px 120px;
+}
+
+h1 {
+  font-family: var(--titre);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  margin: 0 0 48px;
+}
+
+h1 .s {
+  color: var(--signal);
+}
+
+h2 {
+  font-family: var(--titre);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 20px;
+  margin: 44px 0 12px;
+}
+
+p {
+  color: var(--text-dim);
+  margin: 0 0 14px;
+  font-size: 15px;
+  text-wrap: pretty;
+}
+
+.meta {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin: -32px 0 32px;
+}
+
+strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+ul {
+  margin: 0 0 14px;
+  padding-left: 22px;
+  color: var(--text-dim);
+}
+
+ul li {
+  margin: 0 0 10px;
+  font-size: 15px;
+  text-wrap: pretty;
+}
+
+ul li::marker {
+  color: var(--signal);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 24px;
+  font-size: 14px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  vertical-align: top;
+}
+
+th {
+  font-family: var(--titre);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+td {
+  color: var(--text-dim);
+}
+
+@media (max-width: 600px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead {
+    display: none;
+  }
+
+  tr {
+    margin-bottom: 18px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  }
+
+  td {
+    border: 0;
+    padding: 4px 0;
+  }
+
+  td:first-child {
+    color: var(--text);
+    font-weight: 600;
+  }
+}

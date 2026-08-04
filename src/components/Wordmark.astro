@@ -1,0 +1,12 @@
+---
+interface Props {
+  /** Rend le wordmark comme lien si fourni. */
+  href?: string;
+  class?: string;
+}
+
+const { href, class: className } = Astro.props;
+const Tag = href ? 'a' : 'span';
+---
+
+<Tag class:list={['wm', className]} {...href ? { href } : {}}>reep<i></i></Tag>

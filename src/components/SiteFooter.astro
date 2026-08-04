@@ -1,0 +1,34 @@
+---
+interface Props {
+  /** Liens affichés à droite, séparés par « · ». */
+  links: { href: string; label: string }[];
+}
+
+const { links } = Astro.props;
+const annee = new Date().getFullYear();
+---
+
+<footer>
+  <span>© {annee} reep</span>
+  <span>
+    {
+      links.map((link, i) => (
+        <>
+          {i > 0 && ' · '}
+          <a href={link.href}>{link.label}</a>
+        </>
+      ))
+    }
+  </span>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 32px 40px;
+    color: var(--text-dim);
+    font-size: 13px;
+  }
+</style>

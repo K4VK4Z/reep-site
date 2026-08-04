@@ -1,0 +1,78 @@
+---
+import PhoneMockFrames from './PhoneMockFrames.astro';
+import type { Feature } from '../data/features';
+
+interface Props {
+  feature: Feature;
+  /** Section inversée (texte à droite, iPhone à gauche). */
+  alt?: boolean;
+}
+
+const { feature, alt = false } = Astro.props;
+const [ligne1, ligne2] = feature.titre;
+---
+
+<section class:list={['feature', { alt }]}>
+  <div class="inner reveal">
+    <div class="f-txt">
+      <p class="f-num">{feature.numero}</p>
+      <h2>{ligne1}<br />{ligne2}</h2>
+      <span class="f-sub">{feature.sous}</span>
+    </div>
+    <PhoneMockFrames dir={feature.framesDir} count={feature.frameCount} />
+  </div>
+</section>
+
+<style>
+  .feature .inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8vw;
+  }
+
+  .feature.alt .inner {
+    flex-direction: row-reverse;
+  }
+
+  .f-txt {
+    max-width: 520px;
+  }
+
+  .f-num {
+    font-family: var(--titre);
+    font-size: 15px;
+    color: var(--signal);
+    letter-spacing: 0.15em;
+    margin: 0 0 16px;
+  }
+
+  h2 {
+    font-family: var(--titre);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    font-size: clamp(40px, 6vw, 88px);
+    line-height: 1.02;
+    margin: 0;
+    color: var(--text);
+  }
+
+  .f-sub {
+    font-size: clamp(15px, 1.4vw, 19px);
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 22px 0 0;
+    max-width: 460px;
+    display: inline-block;
+    text-wrap: pretty;
+  }
+
+  @media (max-width: 720px) {
+    .feature .inner,
+    .feature.alt .inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 40px;
+    }
+  }
+</style>
