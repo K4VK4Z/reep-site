@@ -1,0 +1,77 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { ROUTES } from '../data/routes';
+---
+
+<LegalLayout
+  title="presse"
+  heading="Presse"
+  description="Kit presse reep : présentation, éléments de langage, logos et contact média."
+  footerLinks={[
+    { href: ROUTES.mentionsLegales, label: 'mentions légales' },
+    { href: ROUTES.confidentialite, label: 'confidentialité' },
+    { href: ROUTES.cgu, label: "conditions d'utilisation" },
+  ]}
+>
+  <p>
+    <strong>reep</strong> est une application de suivi sportif qui transforme chaque séance de
+    musculation en progrès mesurable : programmes personnalisés (dont une génération assistée par
+    IA), suivi des séances, records personnels et classement de salle. L'application est en
+    développement, lancement à venir sur l'App Store.
+  </p>
+
+  <h2>Kit médias</h2>
+  <p>Logos (symbole et wordmark, encre et clair), couleurs de marque et éléments de langage, prêts à l'emploi.</p>
+  <a class="download" href="/presse/reep-kit-presse.zip" download>
+    Télécharger le kit presse <span class="ext">.zip · 29 Ko</span>
+  </a>
+
+  <h2>En bref</h2>
+  <ul>
+    <li><strong>Catégorie</strong> : application mobile, sport et fitness.</li>
+    <li><strong>Statut</strong> : en développement, bientôt disponible sur l'App Store.</li>
+    <li><strong>Éditeur</strong> : Edmond Lomy, éditeur indépendant.</li>
+  </ul>
+
+  <h2>Contact presse</h2>
+  <p>Pour toute demande d'interview, de test en avant-première ou d'information complémentaire :</p>
+  <p><strong>edostudio@proton.me</strong></p>
+
+  <h2>Usage de la marque</h2>
+  <p>
+    Le nom <strong>reep</strong> s'écrit toujours en bas de casse. Merci de ne pas déformer, recolorer
+    ou modifier le logo en dehors des variantes fournies dans le kit.
+  </p>
+</LegalLayout>
+
+<style>
+  .download {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 4px 0 8px;
+    padding: 14px 22px;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .download:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .download .ext {
+    font-family: var(--courant);
+    font-weight: 400;
+    font-size: 12px;
+    color: color-mix(in srgb, var(--bg) 65%, transparent);
+  }
+</style>

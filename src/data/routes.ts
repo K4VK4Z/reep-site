@@ -4,4 +4,5 @@ export const ROUTES = {
   mentionsLegales: '/mentions-legales/',
   confidentialite: '/confidentialite/',
   cgu: '/conditions-generales-utilisation/',
+  presse: '/presse/',
 } as const;

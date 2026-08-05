@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Backdrop from '../components/Backdrop.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import FullscreenMenu from '../components/FullscreenMenu.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { ROUTES } from '../data/routes';
+---
+
+<BaseLayout title="page introuvable" description="Cette page n'existe pas ou plus.">
+  <Backdrop />
+  <SiteHeader />
+  <FullscreenMenu />
+
+  <main>
+    <div class="inner">
+      <p class="eyebrow">erreur 404</p>
+      <h1>Page<br />introuvable<span class="s">.</span></h1>
+      <p class="sub">Ce plan ne mène nulle part — la page a été déplacée ou n'a jamais existé.</p>
+      <a class="home-link" href={ROUTES.accueil}>Retour à l'accueil</a>
+    </div>
+  </main>
+
+  <SiteFooter
+    links={[
+      { href: ROUTES.mentionsLegales, label: 'mentions légales' },
+      { href: ROUTES.confidentialite, label: 'confidentialité' },
+      { href: ROUTES.cgu, label: "conditions d'utilisation" },
+    ]}
+  />
+</BaseLayout>
+
+<style>
+  main {
+    position: relative;
+    z-index: 5;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+  }
+
+  .inner {
+    max-width: 640px;
+  }
+
+  .eyebrow {
+    font-family: var(--titre);
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--signal);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--titre);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1.02;
+    margin: 0;
+    color: var(--text);
+  }
+
+  h1 .s {
+    color: var(--signal);
+  }
+
+  .sub {
+    font-size: clamp(15px, 1.4vw, 19px);
+    color: var(--text-dim);
+    line-height: 1.5;
+    margin: 22px 0 36px;
+    max-width: 460px;
+  }
+
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .home-link:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  @media (max-width: 720px) {
+    main {
+      padding: 0 24px;
+    }
+  }
+</style>
