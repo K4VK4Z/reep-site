@@ -171,7 +171,45 @@ h1 .s {
   margin: 24px 0 48px;
 }
 
+/* — Contact — */
+
+.contact {
+  min-height: 0;
+  padding-bottom: 120px;
+  text-align: center;
+  pointer-events: auto;
+}
+
+.contact-title {
+  font-family: var(--titre);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: clamp(22px, 3vw, 30px);
+  color: var(--text);
+  margin: 0 0 14px;
+}
+
+.contact-title .s {
+  color: var(--signal);
+}
+
+.contact-mail {
+  font-size: 16px;
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.25s ease;
+}
+
+.contact-mail:hover {
+  color: var(--signal);
+}
+
 @media (max-width: 720px) {
+  .contact {
+    padding-bottom: 80px;
+  }
+
   section {
     padding: 0 24px;
   }

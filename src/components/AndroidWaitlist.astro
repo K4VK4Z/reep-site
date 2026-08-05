@@ -1,0 +1,176 @@
+---
+// Liste d'attente Android : formulaire minimal (email) envoyé par
+// FormSubmit (formsubmit.co) en AJAX, sans backend à héberger. Chaque
+// inscription arrive directement par mail à edostudio@proton.me — sert à
+// mesurer gratuitement l'intérêt pour une version Android avant d'investir
+// dedans.
+//
+// Activation requise une seule fois : au tout premier envoi, FormSubmit
+// mail un lien de confirmation à edostudio@proton.me — il faut cliquer
+// dessus pour que les envois suivants arrivent normalement.
+---
+
+<div class="android">
+  <p class="android-label">Sur Android ? Laisse ton email, on te préviendra à la sortie.</p>
+
+  <form id="android-form" class="android-form">
+    <input
+      type="email"
+      name="email"
+      id="android-email"
+      placeholder="ton@email.com"
+      required
+      autocomplete="email"
+    />
+    <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button type="submit">Me prévenir</button>
+  </form>
+
+  <p class="android-msg" id="android-msg" role="status" aria-live="polite"></p>
+</div>
+
+<style>
+  .android {
+    margin-top: 28px;
+  }
+
+  .android-label {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin: 0 0 14px;
+  }
+
+  .android-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .honey {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+  }
+
+  .android-form input[type='email'] {
+    font-family: var(--courant);
+    font-size: 15px;
+    padding: 13px 16px;
+    border: 1px solid color-mix(in srgb, var(--text) 25%, transparent);
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--surface) 60%, transparent);
+    color: var(--text);
+    min-width: 240px;
+    outline: none;
+    transition: border-color 0.25s ease;
+  }
+
+  .android-form input[type='email']::placeholder {
+    color: var(--text-dim);
+  }
+
+  .android-form input[type='email']:focus-visible {
+    border-color: color-mix(in srgb, var(--signal) 55%, transparent);
+  }
+
+  .android-form button {
+    font-family: var(--titre);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: none;
+    background: var(--text);
+    color: var(--bg);
+    cursor: pointer;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .android-form button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  .android-form button:disabled {
+    cursor: default;
+    opacity: 0.6;
+    transform: none;
+  }
+
+  .android-msg {
+    min-height: 20px;
+    font-size: 13px;
+    margin: 14px 0 0;
+    color: var(--text-dim);
+  }
+
+  .android-msg.ok {
+    color: var(--signal);
+  }
+
+  .android.sent .android-form {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .android-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .android-form input[type='email'] {
+      min-width: 0;
+    }
+  }
+</style>
+
+<script>
+  function initAndroidWaitlist() {
+    const root = document.querySelector('.android');
+    const form = document.getElementById('android-form');
+    const msg = document.getElementById('android-msg');
+    if (!root || !form || !msg) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = form.elements.namedItem('email')?.value.trim();
+      const honey = form.elements.namedItem('_honey')?.value;
+      if (!email || honey) return;
+
+      const button = form.querySelector('button');
+      if (button) button.disabled = true;
+      msg.textContent = 'Envoi…';
+      msg.classList.remove('ok');
+
+      try {
+        const res = await fetch('https://formsubmit.co/ajax/edostudio@proton.me', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            email,
+            _subject: 'Liste d’attente Android — reep',
+          }),
+        });
+
+        if (res.ok) {
+          root.classList.add('sent');
+          msg.textContent = 'Merci, on te préviendra dès que reep arrive sur Android.';
+          msg.classList.add('ok');
+        } else {
+          throw new Error('bad response');
+        }
+      } catch {
+        msg.textContent = "Un souci est survenu — écris-nous plutôt à edostudio@proton.me.";
+        if (button) button.disabled = false;
+      }
+    });
+  }
+
+  initAndroidWaitlist();
+</script>
