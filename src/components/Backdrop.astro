@@ -228,8 +228,22 @@ const ticksY = Array.from({ length: 6 }, (_, i) => 160 + i * 112);
 </style>
 
 <script>
-  import { initPlate } from '../scripts/plate';
-
+  // three.js (~127 Ko gzip) est le plus gros morceau de JS du site : import
+  // dynamique + requestIdleCallback pour le sortir du chemin critique de
+  // chargement (polices, texte du hero) au lieu de le faire concurrencer
+  // ces ressources dès la première seconde. Le disque apparaît quelques
+  // dizaines de ms plus tard, imperceptible, pendant que le reste de la
+  // page devient utilisable plus vite. Le timeout borne l'attente sur les
+  // navigateurs très chargés (le disque reste prioritaire malgré tout).
   const canvas = document.getElementById('gl');
-  if (canvas instanceof HTMLCanvasElement) initPlate(canvas);
+  if (canvas instanceof HTMLCanvasElement) {
+    const start = () => {
+      import('../scripts/plate').then(({ initPlate }) => initPlate(canvas));
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(start, { timeout: 800 });
+    } else {
+      setTimeout(start, 150);
+    }
+  }
 </script>

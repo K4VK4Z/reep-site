@@ -2,28 +2,28 @@
  * reep — socle global du site vitrine.
  * Tokens et primitives partagés par la page d'accueil et les pages légales.
  *
- * Thème clair par défaut, thème sombre activé via [data-theme="dark"] sur
+ * Thème sombre par défaut, thème clair activé via [data-theme="light"] sur
  * <html> (posé avant le premier paint par le script anti-flash de
  * BaseLayout, à partir de la préférence enregistrée dans localStorage).
  */
 
 :root {
-  --bg: #f7f6f4;
-  --text: #141312;
-  --text-dim: #6e6c68;
-  --signal: #e8412c;
-  --surface: #ece9e4;
-
-  --titre: 'Space Grotesk', sans-serif;
-  --courant: 'Inter', sans-serif;
-}
-
-:root[data-theme='dark'] {
   --bg: #141312;
   --text: #f2f1ef;
   --text-dim: #6e6c68;
   --signal: #e8412c;
   --surface: #1f1e1c;
+
+  --titre: 'Space Grotesk', sans-serif;
+  --courant: 'Inter', sans-serif;
+}
+
+:root[data-theme='light'] {
+  --bg: #f7f6f4;
+  --text: #141312;
+  --text-dim: #6e6c68;
+  --signal: #e8412c;
+  --surface: #ece9e4;
 }
 
 * {

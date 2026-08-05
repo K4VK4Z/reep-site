@@ -14,12 +14,22 @@
  * de plate.ts) : le téléphone « rattrape » le scroll avec un léger retard
  * amorti au lieu de sauter d'une frame à l'autre — même sur un coup de
  * molette sec, la rotation reste fluide.
+ *
+ * Chaque séquence (100-125 webp) ne commence à se télécharger que lorsque
+ * sa section approche du viewport (IntersectionObserver, marge 800px) : au
+ * chargement de la page, les 3 séquences (~350 images) partaient toutes en
+ * même temps, saturant la connexion et retardant tout le reste (polices,
+ * disque 3D, premier contenu visible) pour des sections pas encore à
+ * l'écran.
  */
 const WINDOW_START = 0.22;
 const WINDOW_END = 0.82;
 
 /** Part du chemin restant rattrapée à chaque frame (1 = aucun lissage). */
 const SMOOTHING = 0.11;
+
+/** Distance d'anticipation avant le viewport pour démarrer le téléchargement. */
+const PRELOAD_MARGIN = '300px 0px';
 
 function initOne(canvas: HTMLCanvasElement): void {
   const section = canvas.closest<HTMLElement>('.feature');
@@ -34,6 +44,7 @@ function initOne(canvas: HTMLCanvasElement): void {
 
   const images: (HTMLImageElement | null)[] = new Array(count).fill(null);
   let loadedOnce = false;
+  let started = false;
 
   const draw = (index: number) => {
     // Si la frame demandée n'est pas encore chargée, on affiche la plus
@@ -52,15 +63,19 @@ function initOne(canvas: HTMLCanvasElement): void {
     loadedOnce = true;
   };
 
-  for (let i = 0; i < count; i++) {
-    const img = new Image();
-    img.decoding = 'async';
-    img.src = `${base}${String(i + 1).padStart(3, '0')}.webp`;
-    img.onload = () => {
-      images[i] = img;
-      if (!loadedOnce && i === 0) draw(0);
-    };
-  }
+  const startLoading = () => {
+    if (started) return;
+    started = true;
+    for (let i = 0; i < count; i++) {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = `${base}${String(i + 1).padStart(3, '0')}.webp`;
+      img.onload = () => {
+        images[i] = img;
+        if (!loadedOnce && i === 0) draw(0);
+      };
+    }
+  };
 
   let current = 0;
   let drawn = -1;
@@ -83,7 +98,17 @@ function initOne(canvas: HTMLCanvasElement): void {
     }
     requestAnimationFrame(frame);
   };
-  frame();
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      io.disconnect();
+      startLoading();
+      frame();
+    },
+    { rootMargin: PRELOAD_MARGIN },
+  );
+  io.observe(section);
 }
 
 export function initFrameScrub(): void {

@@ -91,7 +91,7 @@ const PLATE_THEME = {
 type PlateTheme = keyof typeof PLATE_THEME;
 
 function currentTheme(): PlateTheme {
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 }
 
 /** Marquage « 20 KG » gravé sur la face, redessiné au changement de thème et une fois les fontes prêtes. */

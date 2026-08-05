@@ -1,5 +1,5 @@
 /**
- * Bascule clair/sombre : clair par défaut, préférence mémorisée dans
+ * Bascule clair/sombre : sombre par défaut, préférence mémorisée dans
  * localStorage. Le flash au chargement est évité par un script inline dans
  * BaseLayout qui pose l'attribut avant le premier paint.
  *
@@ -13,12 +13,12 @@ export type Theme = 'light' | 'dark';
 const STORAGE_KEY = 'reep-theme';
 
 export function getTheme(): Theme {
-  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
 }
 
 export function applyTheme(theme: Theme): void {
-  if (theme === 'dark') {
-    document.documentElement.dataset.theme = 'dark';
+  if (theme === 'light') {
+    document.documentElement.dataset.theme = 'light';
   } else {
     delete document.documentElement.dataset.theme;
   }

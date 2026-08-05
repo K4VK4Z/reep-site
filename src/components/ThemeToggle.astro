@@ -5,7 +5,7 @@
 // l'action : la lune quand cliquer passe en sombre, le soleil pour le clair.
 ---
 
-<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="passer en mode sombre">
+<button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="true" aria-label="passer en mode clair">
   <svg viewBox="0 0 64 64" aria-hidden="true">
     <!-- Cercle de construction + repères, comme les guides du disque. -->
     <g class="guides">
@@ -92,19 +92,19 @@
       transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .sun {
+  .moon {
+    opacity: 0;
+    transform: rotate(60deg) scale(0.7);
+  }
+
+  :global(html[data-theme='light']) .sun {
     opacity: 0;
     transform: rotate(-60deg) scale(0.7);
   }
 
-  :global(html[data-theme='dark']) .sun {
+  :global(html[data-theme='light']) .moon {
     opacity: 1;
     transform: none;
-  }
-
-  :global(html[data-theme='dark']) .moon {
-    opacity: 0;
-    transform: rotate(60deg) scale(0.7);
   }
 
   @media (max-width: 720px) {

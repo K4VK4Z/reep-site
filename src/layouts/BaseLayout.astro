@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   /** Titre de l'onglet, déjà préfixé « reep — » par le layout. */
@@ -22,18 +23,18 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f7f6f4" id="meta-theme-color" />
+    <meta name="theme-color" content="#141312" id="meta-theme-color" />
     <!--
-      Anti-flash : pose le thème sombre avant le premier paint si c'est la
-      préférence enregistrée (le thème clair est déjà celui de :root, donc
+      Anti-flash : pose le thème clair avant le premier paint si c'est la
+      préférence enregistrée (le thème sombre est déjà celui de :root, donc
       rien à faire dans ce cas). Doit rester un script inline, non un module,
       pour s'exécuter avant que le CSS ne soit appliqué.
     -->
     <script is:inline>
       (function () {
         try {
-          if (localStorage.getItem('reep-theme') === 'dark') {
-            document.documentElement.dataset.theme = 'dark';
+          if (localStorage.getItem('reep-theme') === 'light') {
+            document.documentElement.dataset.theme = 'light';
           }
         } catch (e) {}
       })();
@@ -47,6 +48,7 @@ const {
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap"
       rel="stylesheet"
     />
+    <Analytics />
   </head>
   <body class={bodyClass}>
     <slot />
