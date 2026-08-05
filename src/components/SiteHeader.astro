@@ -1,10 +1,11 @@
 ---
 import ReepLogo from './ReepLogo.astro';
 import ThemeToggle from './ThemeToggle.astro';
+import { ROUTES } from '../data/routes';
 ---
 
 <header>
-  <ReepLogo />
+  <ReepLogo href={ROUTES.accueil} />
   <div class="header-actions">
     <button class="menu-btn" id="burger" type="button" aria-controls="menu" aria-expanded="false">
       menu<span class="bars" aria-hidden="true"><i></i><i></i></span>
