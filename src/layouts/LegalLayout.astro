@@ -2,6 +2,7 @@
 import '../styles/legal.css';
 
 import BaseLayout from './BaseLayout.astro';
+import Backdrop from '../components/Backdrop.astro';
 import ReepLogo from '../components/ReepLogo.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ThemeToggle from '../components/ThemeToggle.astro';
@@ -21,6 +22,8 @@ const { title, heading, description, footerLinks } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} bodyClass="legal">
+  <Backdrop />
+
   <header>
     <ReepLogo href={ROUTES.accueil} />
     <div class="header-actions">
