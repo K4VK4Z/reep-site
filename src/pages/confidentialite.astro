@@ -1,7 +1,7 @@
 ---
 // Contenu identique à la politique de confidentialité de l'application reep
 // (source : legal/politique-de-confidentialite.md, dernière mise à jour le
-// 23 juillet 2026). À reporter ici à chaque mise à jour du document source.
+// 6 août 2026). À reporter ici à chaque mise à jour du document source.
 import LegalLayout from '../layouts/LegalLayout.astro';
 import { ROUTES } from '../data/routes';
 ---
@@ -16,7 +16,7 @@ import { ROUTES } from '../data/routes';
     { href: ROUTES.cgu, label: "conditions d'utilisation" },
   ]}
 >
-  <p class="meta">Dernière mise à jour : 23 juillet 2026</p>
+  <p class="meta">Dernière mise à jour : 6 août 2026</p>
   <p>
     La présente politique explique quelles données personnelles sont collectées par l'application
     <strong>reep</strong>, pourquoi, combien de temps elles sont conservées et quels sont tes droits.
@@ -54,6 +54,12 @@ import { ROUTES } from '../data/routes';
     </li>
     <li><strong>Préférences</strong> : réglages d'affichage et de confidentialité, stockés localement sur ton appareil.</li>
     <li>
+      <strong>Notifications</strong> : si tu les autorises, un <strong>jeton de notification</strong>
+      propre à ton appareil est enregistré pour pouvoir t'avertir de l'activité qui te concerne
+      (mentions « j'aime », commentaires, mentions, nouveaux abonnés). Ce jeton n'identifie pas ton
+      appareil auprès de tiers et est effacé dès que tu te déconnectes ou refuses les notifications.
+    </li>
+    <li>
       <strong>Données techniques</strong> : identifiants techniques nécessaires au fonctionnement
       (jeton de session, identifiant d'appareil pour les achats). <strong>Aucune publicité, aucun
       traceur publicitaire.</strong>
@@ -80,6 +86,10 @@ import { ROUTES } from '../data/routes';
       <tr>
         <td>Générer un programme sur mesure et analyser ta photo</td>
         <td><strong>Consentement</strong> (art. 6.1.a), recueilli avant chaque analyse</td>
+      </tr>
+      <tr>
+        <td>T'envoyer des notifications sur l'activité qui te concerne</td>
+        <td>Exécution du contrat, après ton autorisation dans les réglages iOS</td>
       </tr>
       <tr>
         <td>Gérer l'abonnement reep Premium</td>
@@ -112,13 +122,20 @@ import { ROUTES } from '../data/routes';
       n'est pas conservée.
     </li>
     <li><strong>RevenueCat</strong> — gestion des abonnements, aux <strong>États-Unis</strong>.</li>
-    <li><strong>Apple</strong> — traitement des paiements de l'abonnement (nous ne recevons jamais tes données bancaires).</li>
+    <li>
+      <strong>Expo</strong> — acheminement des notifications push, aux <strong>États-Unis</strong>.
+      Seuls le jeton de ton appareil et le texte de la notification transitent par ce service.
+    </li>
+    <li>
+      <strong>Apple</strong> — traitement des paiements de l'abonnement (nous ne recevons jamais tes
+      données bancaires) et distribution des notifications sur ton iPhone via le service APNs.
+    </li>
   </ul>
 
   <h2>5. Transferts hors de l'Union européenne</h2>
   <p>
-    Les traitements réalisés par Anthropic et RevenueCat impliquent un transfert de données vers les
-    États-Unis. Ces transferts sont encadrés par les <strong>clauses contractuelles types</strong>
+    Les traitements réalisés par Anthropic, RevenueCat et Expo impliquent un transfert de données
+    vers les États-Unis. Ces transferts sont encadrés par les <strong>clauses contractuelles types</strong>
     de la Commission européenne et/ou les cadres de protection applicables.
   </p>
 
@@ -127,6 +144,10 @@ import { ROUTES } from '../data/routes';
     <li><strong>Données de compte et d'entraînement</strong> : conservées tant que ton compte existe.</li>
     <li><strong>Photo du physique</strong> : non conservée (traitée puis supprimée immédiatement).</li>
     <li><strong>Après suppression du compte</strong> : l'ensemble de tes données est <strong>supprimé définitivement</strong> (voir section 8).</li>
+    <li>
+      <strong>Jeton de notification</strong> : conservé tant que tu restes connecté et que les
+      notifications sont autorisées, effacé à la déconnexion.
+    </li>
     <li><strong>Journaux techniques et de sécurité</strong> : au maximum 12 mois.</li>
   </ul>
 
@@ -149,25 +170,32 @@ import { ROUTES } from '../data/routes';
     photo de profil.
   </p>
 
-  <h2>9. Sécurité</h2>
+  <h2>9. Partage vers d'autres applications</h2>
+  <p>
+    Quand tu partages une séance sous forme d'image (story Instagram, messages…), l'image est
+    <strong>générée sur ton appareil</strong> et transmise directement à l'application que tu
+    choisis. reep n'envoie rien à ces applications et ne sait pas ce que tu publies.
+  </p>
+
+  <h2>10. Sécurité</h2>
   <p>
     L'accès à tes données est protégé par une authentification et des règles d'accès strictes au
     niveau de la base de données : chaque utilisateur ne peut accéder qu'à ses propres données et aux
     contenus rendus publics par les autres.
   </p>
 
-  <h2>10. Âge minimum</h2>
+  <h2>11. Âge minimum</h2>
   <p>
     reep n'est pas destinée aux personnes de moins de <strong>15 ans</strong>. Nous ne collectons pas
     sciemment de données concernant des mineurs de moins de 15 ans.
   </p>
 
-  <h2>11. Modifications</h2>
+  <h2>12. Modifications</h2>
   <p>
     Cette politique peut évoluer. En cas de changement important, tu en seras informé dans
     l'application. La date de dernière mise à jour figure en haut de ce document.
   </p>
 
-  <h2>12. Contact</h2>
+  <h2>13. Contact</h2>
   <p>Pour toute question : <strong>edostudio@proton.me</strong></p>
 </LegalLayout>
