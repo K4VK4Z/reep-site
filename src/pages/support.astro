@@ -1,0 +1,74 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { ROUTES } from '../data/routes';
+---
+
+<LegalLayout
+  title="aide"
+  heading="Aide"
+  description="Support reep : contact, signalement de bug, gestion de l'abonnement Premium, suppression de compte."
+  footerLinks={[
+    { href: ROUTES.mentionsLegales, label: 'mentions légales' },
+    { href: ROUTES.confidentialite, label: 'confidentialité' },
+    { href: ROUTES.cgu, label: "conditions d'utilisation" },
+  ]}
+>
+  <p class="meta">Réponse sous 48 h ouvrées</p>
+
+  <p>
+    Une question, un bug, une idée ? Écris à <strong>edostudio@proton.me</strong>. C'est moi qui
+    réponds, pas un formulaire.
+  </p>
+
+  <h2>Signaler un bug</h2>
+  <p>Pour que ce soit réglé vite, indique :</p>
+  <ul>
+    <li>ce que tu faisais au moment du problème ;</li>
+    <li>ton modèle d'iPhone et ta version d'iOS ;</li>
+    <li>ton pseudo reep ;</li>
+    <li>une capture d'écran, si tu en as une.</li>
+  </ul>
+
+  <h2>Abonnement Premium</h2>
+  <p>
+    L'abonnement est géré par Apple, pas par reep. Pour changer de formule ou résilier :
+    <strong>Réglages iOS &gt; ton nom &gt; Abonnements &gt; reep</strong>. La résiliation prend effet
+    à la fin de la période déjà payée — tu gardes l'accès jusque-là.
+  </p>
+  <p>
+    Paiement débité mais Premium non activé ? Ouvre <strong>Vous &gt; reep Premium</strong> et touche
+    <strong>Restaurer mes achats</strong>. Si rien ne change, écris-moi en précisant la date de
+    l'achat.
+  </p>
+  <p>
+    Les demandes de remboursement passent par Apple :
+    <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener"
+      >reportaproblem.apple.com</a
+    >.
+  </p>
+
+  <h2>Supprimer ton compte</h2>
+  <p>
+    Dans l'app : <strong>Vous &gt; Réglages &gt; Supprimer mon compte</strong>. La suppression est
+    définitive — séances, statistiques, publications et abonnés sont effacés, et rien n'est
+    récupérable ensuite. Tu peux aussi en faire la demande par email, depuis l'adresse de ton compte.
+  </p>
+
+  <h2>Ta salle n'apparaît pas</h2>
+  <p>
+    Envoie-moi son nom et son adresse, je l'ajoute à la carte. Même chose pour un exercice qui
+    manque à la bibliothèque.
+  </p>
+
+  <h2>Tes données</h2>
+  <p>
+    Ce que reep collecte, pourquoi, et combien de temps c'est conservé :
+    <a href={ROUTES.confidentialite}>politique de confidentialité</a>. Rien n'est vendu à des tiers.
+  </p>
+
+  <h2>Disponibilité</h2>
+  <p>
+    reep est disponible sur iPhone, en France. Une version Android est à l'étude : la liste
+    d'attente est sur l'<a href={ROUTES.accueil}>accueil</a>.
+  </p>
+</LegalLayout>
