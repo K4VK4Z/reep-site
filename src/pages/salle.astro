@@ -1,0 +1,53 @@
+---
+/**
+ * Redirection de l'affiche posée en salle (QR code) vers l'App Store.
+ *
+ * ⚠️ Le QR imprimé pointe ICI, jamais directement sur l'App Store. Une affiche est
+ * imprimée une fois et reste au mur des mois : si le lien change — jeton de campagne,
+ * arrivée d'Android, page d'atterrissage — il ne doit pas falloir réimprimer.
+ *
+ * ⚠️ Le paramètre `ct=salle` est ce qui fait remonter ces installations dans
+ * App Store Connect → Analyses → Sources. Sans lui, impossible de savoir si l'affiche
+ * sert à quelque chose.
+ */
+const APP_STORE = 'https://apps.apple.com/fr/app/id6795474077?ct=salle&mt=8';
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reep — télécharger</title>
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content={`0; url=${APP_STORE}`} />
+    <link rel="canonical" href={APP_STORE} />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f0efed;
+        color: #111110;
+        font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+        text-align: center;
+        padding: 24px;
+      }
+      a {
+        color: #e8412c;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Repli : la redirection par méta ne part pas si JavaScript et la balise sont
+         bloqués (rare, mais un lecteur de QR intégré peut le faire). -->
+    <div>
+      <p>Ouverture de l'App Store…</p>
+      <p><a href={APP_STORE}>Si rien ne se passe, appuie ici.</a></p>
+    </div>
+    <script is:inline define:vars={{ APP_STORE }}>
+      window.location.replace(APP_STORE);
+    </script>
+  </body>
+</html>
