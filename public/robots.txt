@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Redirection du QR de l'affiche en salle : une cible technique, pas une page.
+Disallow: /salle
+
+Sitemap: https://reepapp.fr/sitemap.xml

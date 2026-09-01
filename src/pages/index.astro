@@ -13,9 +13,33 @@ import SiteFooter from '../components/SiteFooter.astro';
 import Wordmark from '../components/Wordmark.astro';
 import { FEATURES } from '../data/features';
 import { ROUTES } from '../data/routes';
+import { APP_ID, appStoreUrl } from '../data/app-store';
+
+const donneesStructurees = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'reep',
+  applicationCategory: 'HealthApplication',
+  operatingSystem: 'iOS',
+  url: 'https://reepapp.fr',
+  sameAs: [appStoreUrl()],
+  description:
+    "Suivi de séance de musculation avec la salle dedans : qui s'entraîne maintenant, le classement du mois, les records des amis en direct.",
+  inLanguage: 'fr-FR',
+  author: { '@type': 'Person', name: 'Edmond Lomy' },
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  identifier: APP_ID,
+};
 ---
 
-<BaseLayout title="app de musculation">
+<BaseLayout title="app de musculation" ogTitle="reep — ta salle va changer.">
+  {/*
+    Données structurées : dit à Google que reep est une application iOS et
+    quel lien App Store lui appartient. Une autre application s'appelle REEP
+    sur le store — sans ça, rien ne distingue les deux dans les résultats.
+  */}
+  <script type="application/ld+json" is:inline set:html={JSON.stringify(donneesStructurees)} />
+
   <Backdrop />
   <SiteHeader />
   <FullscreenMenu />
@@ -41,7 +65,7 @@ import { ROUTES } from '../data/routes';
       <div class="inner reveal">
         <Wordmark />
         <p>
-          Le carnet d'entraînement qui retient tout.<br />
+          Ton suivi de séance, avec ta salle dedans.<br />
           Maintenant entre tes mains.
         </p>
         <AppStoreButton />

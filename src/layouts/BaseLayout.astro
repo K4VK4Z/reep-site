@@ -1,20 +1,30 @@
 ---
 import '../styles/global.css';
 import Analytics from '@vercel/analytics/astro';
+import { APP_ID } from '../data/app-store';
 
 interface Props {
   /** Titre de l'onglet, déjà préfixé « reep — » par le layout. */
   title: string;
   description?: string;
+  /** Titre des aperçus de partage, si « reep — {title} » ne convient pas. */
+  ogTitle?: string;
   /** Classe posée sur <body> (ex. « legal » pour les pages de contenu). */
   bodyClass?: string;
 }
 
 const {
   title,
-  description = "reep — le carnet d'entraînement qui retient tout. Disponible sur l'App Store.",
+  description = "reep — ton suivi de séance, avec ta salle dedans : qui s'entraîne maintenant, le classement du mois, les records en direct. Sur l'App Store.",
+  ogTitle,
   bodyClass,
 } = Astro.props;
+
+const titreComplet = `reep — ${title}`;
+const canonique = new URL(Astro.url.pathname, Astro.site);
+/* L'aperçu de partage exige une URL absolue : un chemin relatif n'est
+   résolu par aucun des scrapers (iMessage, WhatsApp, Instagram, Slack). */
+const apercu = new URL('/og.jpg', Astro.site);
 ---
 
 <!doctype html>
@@ -39,9 +49,39 @@ const {
         } catch (e) {}
       })();
     </script>
-    <title>reep — {title}</title>
+    <title>{titreComplet}</title>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <link rel="canonical" href={canonique} />
+
+    <!--
+      Bannière Safari iOS : « Ouvrir dans l'App Store » en haut de la page,
+      sans lien à taper. C'est le chemin le plus court entre un visiteur
+      iPhone et l'installation, et l'essentiel du trafic vient du mobile.
+    -->
+    <meta name="apple-itunes-app" content={`app-id=${APP_ID}`} />
+
+    <!--
+      Aperçu de partage. reepapp.fr est collé dans des messages privés, des
+      bios et des stories : sans ces balises, le lien s'affiche en rectangle
+      gris. L'image vit dans public/og.jpg (1200 × 630).
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="reep" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:title" content={ogTitle ?? titreComplet} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonique} />
+    <meta property="og:image" content={apercu} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Le logo reep sur fond noir, la phrase « ta salle va changer » et la mention « disponible sur l'App Store »."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle ?? titreComplet} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={apercu} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
