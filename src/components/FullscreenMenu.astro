@@ -1,5 +1,6 @@
 ---
 import { ROUTES } from '../data/routes';
+import { appStoreUrl } from '../data/app-store';
 ---
 
 <div class="menu" id="menu" aria-hidden="true">
@@ -12,7 +13,9 @@ import { ROUTES } from '../data/routes';
     <a href={ROUTES.confidentialite}>confidentialité<i></i></a>
     <a href={ROUTES.cgu}>conditions d'utilisation<i></i></a>
   </nav>
-  <span class="m-foot">reep — bientôt sur l'App Store</span>
+  <a class="m-foot" href={appStoreUrl('menu')} target="_blank" rel="noopener"
+    >reep — disponible sur l'App Store</a
+  >
 </div>
 
 <style>
@@ -96,12 +99,24 @@ import { ROUTES } from '../data/routes';
     right: 40px;
   }
 
+  /* Le pied du menu est un lien depuis le lancement : il ne doit pas hériter
+     de la typo géante de `.menu a`. */
   .menu .m-foot {
     position: absolute;
     bottom: 32px;
     left: 40px;
     color: #6e6c68;
+    font-family: inherit;
     font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-decoration: none;
+    transition: color 0.25s;
+  }
+
+  .menu .m-foot:hover {
+    color: #f2f1ef;
+    transform: none;
   }
 
   @media (max-width: 720px) {

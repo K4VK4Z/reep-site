@@ -10,7 +10,9 @@
  * App Store Connect → Analyses → Sources. Sans lui, impossible de savoir si l'affiche
  * sert à quelque chose.
  */
-const APP_STORE = 'https://apps.apple.com/fr/app/id6795474077?ct=salle&mt=8';
+import { appStoreUrl } from '../data/app-store';
+
+const APP_STORE = appStoreUrl('salle');
 ---
 
 <!doctype html>
